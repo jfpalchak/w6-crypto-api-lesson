@@ -21,6 +21,7 @@ background-color: rgba(120, 213, 120, 0.222);
   margin: auto 10px;
   width: 40%;
   height: 450x;
+  overflow-y: auto;
 }
 
 .coin p{
