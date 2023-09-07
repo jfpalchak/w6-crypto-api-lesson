@@ -8,15 +8,14 @@ import CryptoService from './js/crypto-service.js';
 // handle calling CoinGecko API endpoint for market's top coins (set to 10)
 function getCoins() {
 
-  // Utilizing FETCH with .then()
-  CryptoService.getCoins()
-    .then(function(response) {
-      if (response[0]) { // if fetch returns ok and we have good JSON data
-        displayTopCoins(response);
-      } else { // if fetch returns a bad get
-        displayError(response);
-      }
-    });
+  // Utilizing Promises & XHR
+  let promise = CryptoService.getCoins();
+
+  promise.then(function(okResponse) {// if Promise is RESOLVED, receive good data
+    displayTopCoins(okResponse);
+  }, function(errorMessage) {// if Promise is REJECTED, receive error data
+    displayError(errorMessage);
+  });
 }
 
 // handle calling CoinGecko API endpoint for a specific coin
