@@ -1,4 +1,5 @@
 export default class CryptoService {
+  // GET current Top (10) coins
   static async getCoins() {
 
     try {
@@ -13,6 +14,26 @@ export default class CryptoService {
   
       return jsonResponse;
 
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // GET data for specific coin
+  static async getCoinInfo(coin) {
+    
+    try {
+    
+      const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
+      const response = await fetch(url);
+      const jsonResponse = await response.json();
+
+      if (!response.ok) {
+        const errorMessage = `${response.status} ${response.statusText}: ${response.error}.`;
+        throw new Error(errorMessage);
+      }
+
+      return jsonResponse;
     } catch (error) {
       return error;
     }
