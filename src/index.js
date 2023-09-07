@@ -1,7 +1,6 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-// import CryptoService from './js/crypto-service.js';
 import { getCoins, getCoinInfo } from './js/get-coins.js';
 
 // UI LOGIC
