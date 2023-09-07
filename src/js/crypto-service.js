@@ -1,42 +1,34 @@
 export default class CryptoService {
   // GET current Top (10) coins
-  static async getCoins() {
-
-    try {
-      const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1";
-      const response = await fetch(url);
-      const jsonResponse = await response.json();
-  
-      if (!response.ok) {
-        const errorMessage = `${response.status} ${response.statusText}: ${response.error}.`;
-        throw new Error(errorMessage);
-      }
-  
-      return jsonResponse;
-
-    } catch (error) {
-      return error;
-    }
+  static getCoins() {
+    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1";
+    return fetch(url)
+      .then(function(response) {
+        if (!response.ok) { // if fetch does not return 200 ok, throw error
+          const errorMessage = `${response.status} ${response.statusText}: ${response.error}.`;
+          throw new Error(errorMessage);
+        } 
+        return response.json(); // otherwise return our JSON data
+      })
+      .catch(function(error) {
+        return error;
+      });
   }
 
   // GET data for specific coin
   static async getCoinInfo(coin) {
-    
-    try {
-    
-      const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
-      const response = await fetch(url);
-      const jsonResponse = await response.json();
+    const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
+    return fetch(url)
+      .then(function(response) {
+        if (!response.ok) { // if fetch does not return 200 ok, throw error
+          const errorMessage = `${response.status} ${response.statusText}: ${response.error}.`;
+          throw new Error(errorMessage);
+        }
+        return response.json(); // otherwise, send our JSON data
+      })
+      .catch(function(error) {
+        return error;
+      });
 
-      if (!response.ok) {
-        const errorMessage = `${response.status} ${response.statusText}: ${response.error}.`;
-        throw new Error(errorMessage);
-      }
-
-      return jsonResponse;
-    } catch (error) {
-      return error;
-    }
   }
-
 }
