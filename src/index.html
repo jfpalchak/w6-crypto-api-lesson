@@ -6,17 +6,25 @@
   <title>Template</title>
 </head>
 <body>
-  <div class="row">
+  <div class="content row container">
 
-    <div id="top-ten-display">
+    <div id="top-ten-display" class="display col-6 container">
+      <table id="top-coins">
+        <tr id="table-header">
+          <th>#</th>
+          <th>Coin</th>
+          <th>Current Price</th>
+        </tr>
+      </table>
     </div>
 
-    <div id="coin-info-display">
+    <div id="hidden" class="display col-5 container">
+      <div id="coin-info-display" class="coin">
+      </div>
     </div>
-
   </div>
-  
-  <div class="credit">
+
+  <div class="credit container">
     <p>Powered by <a href="https://www.coingecko.com">CoinGecko</a></p>
   </div>
 </body>
