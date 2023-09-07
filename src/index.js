@@ -70,7 +70,8 @@ function displayTopCoins(topTen) {
 
     td0.innerText = coinObject['market_cap_rank'];
     td1.innerText = coinObject.name;
-    td2.innerText = coinObject["current_price"];
+    td1.setAttribute('class', 'bold');
+    td2.innerText = `$${coinObject["current_price"]}`;
 
     tRow.append(td0, td1, td2);
     table.append(tRow);
