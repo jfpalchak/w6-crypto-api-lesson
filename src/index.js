@@ -1,39 +1,13 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import CryptoService from './js/crypto-service.js';
-
-// BUSINESS LOGIC
-
-// handle calling CoinGecko API endpoint for market's top coins (set to 10)
-async function getCoins() {
-  // Utilizing ASYNC & AWAIT
-  const response = await CryptoService.getCoins();
-  // const response = 'Whoops!';
-  if (response[0]) {
-    displayTopCoins(response);
-  } else {
-    displayError(response);
-  }
-
-}
-
-// handle calling CoinGecko API endpoint for a specific coin
-async function getCoinInfo(coin) {
-
-  const response = await CryptoService.getCoinInfo(coin);
-  // const response = 'Whoops!';
-  if (response.id) {
-    displayCoinInfo(response);
-  } else {
-    displayCoinError(response);
-  }
-}
+// import CryptoService from './js/crypto-service.js';
+import { getCoins, getCoinInfo } from './js/get-coins.js';
 
 // UI LOGIC
 
 // Display the API response for the specified crypto coin
-function displayCoinInfo(coin) {
+export function displayCoinInfo(coin) {
   const coinDiv = document.querySelector('#coin-info-display');
   const purseDiv = document.querySelector('div#hidden');
   if (purseDiv) {
@@ -56,7 +30,7 @@ function displayCoinInfo(coin) {
 }
 
 // Display the API response for the top ten crypto coins
-function displayTopCoins(topTen) {
+export function displayTopCoins(topTen) {
   const topTenDiv = document.querySelector('#top-ten-display');
   const table = document.querySelector('table');
 
@@ -82,13 +56,13 @@ function displayTopCoins(topTen) {
 }
 
 // Display API error, if received
-function displayError(error) {
+export function displayError(error) {
   const topTenDiv = document.querySelector('#top-ten-display');
   topTenDiv.innerText = `Whoops! ${error}`;
 }
 
 // Display API error, if received
-function displayCoinError(error) {
+export function displayCoinError(error) {
   const coinDiv = document.querySelector('#coin-info-display');
   coinDiv.innerText = `Whoops! ${error}`;
 }
