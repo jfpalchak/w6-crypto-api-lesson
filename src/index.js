@@ -11,9 +11,9 @@ function getCoins() {
   // Utilizing Promises & XHR
   let promise = CryptoService.getCoins();
 
-  promise.then(function(okResponse) {// if Promise is RESOLVED, receive good data
-    displayTopCoins(okResponse);
-  }, function(errorMessage) {// if Promise is REJECTED, receive error data
+  promise.then(function(okTopCoins) { // if Promise is RESOLVED, receive good data
+    displayTopCoins(okTopCoins);
+  }, function(errorMessage) { // if Promise is REJECTED, receive error data
     displayError(errorMessage);
   });
 }
@@ -21,14 +21,13 @@ function getCoins() {
 // handle calling CoinGecko API endpoint for a specific coin
 function getCoinInfo(coin) {
 
-  CryptoService.getCoinInfo(coin)
-    .then(function(response) {
-      if (response.id) { // if fetch returns ok and we have good JSON data
-        displayCoinInfo(response);
-      } else { // if fetch returns a bad get
-        displayCoinError(response);
-      }
-    });
+  let promise = CryptoService.getCoinInfo(coin);
+    
+  promise.then(function(okCoinInfo) {
+    displayCoinInfo(okCoinInfo);
+  }, function(errorMessage) {
+    displayCoinError(errorMessage, coin);
+  });
 }
 
 // UI LOGIC
@@ -84,14 +83,16 @@ function displayTopCoins(topTen) {
 
 // Display API error, if received
 function displayError(error) {
+  const errorMessage = `Whoops! ${error.status} ${error.statusText}`;
   const topTenDiv = document.querySelector('#top-ten-display');
-  topTenDiv.innerText = `Whoops! ${error}`;
+  topTenDiv.innerText = errorMessage;
 }
 
 // Display API error, if received
-function displayCoinError(error) {
+function displayCoinError(error, coin) {
+  const errorMessage = `Whoops! We couldn't look up ${coin}: ${error.status} ${error.statusText}`;
   const coinDiv = document.querySelector('#coin-info-display');
-  coinDiv.innerText = `Whoops! ${error}`;
+  coinDiv.innerText = errorMessage;
 }
 
 // handle all UI logic

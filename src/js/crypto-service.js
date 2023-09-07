@@ -27,18 +27,22 @@ export default class CryptoService {
 
   // GET data for specific coin
   static getCoinInfo(coin) {
-    const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
-    return fetch(url)
-      .then(function(response) {
-        if (!response.ok) { // if fetch does not return 200 ok, throw error
-          const errorMessage = `${response.status} ${response.statusText}: ${response.error}.`;
-          throw new Error(errorMessage);
+
+    return new Promise(function(resolve, reject) { 
+      let request = new XMLHttpRequest();
+      const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
+
+      request.addEventListener("loadend", function() {
+        const response = JSON.parse(this.responseText);
+        if (this.status === 200) {
+          resolve(response);
+        } else {
+          reject(this);
         }
-        return response.json(); // otherwise, send our JSON data
-      })
-      .catch(function(error) {
-        return error;
       });
 
+      request.open("GET", url, true);
+      request.send();
+    });
   }
 }
