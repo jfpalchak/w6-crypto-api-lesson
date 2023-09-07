@@ -6,28 +6,30 @@ import CryptoService from './js/crypto-service.js';
 // BUSINESS LOGIC
 
 // handle calling CoinGecko API endpoint for market's top coins (set to 10)
-async function getCoins() {
-  // Utilizing ASYNC & AWAIT
-  const response = await CryptoService.getCoins();
-  // const response = 'Whoops!';
-  if (response[0]) {
-    displayTopCoins(response);
-  } else {
-    displayError(response);
-  }
+function getCoins() {
 
+  // Utilizing FETCH with .then()
+  CryptoService.getCoins()
+    .then(function(response) {
+      if (response[0]) { // if fetch returns ok and we have good JSON data
+        displayTopCoins(response);
+      } else { // if fetch returns a bad get
+        displayError(response);
+      }
+    });
 }
 
 // handle calling CoinGecko API endpoint for a specific coin
-async function getCoinInfo(coin) {
+function getCoinInfo(coin) {
 
-  const response = await CryptoService.getCoinInfo(coin);
-  // const response = 'Whoops!';
-  if (response.id) {
-    displayCoinInfo(response);
-  } else {
-    displayCoinError(response);
-  }
+  CryptoService.getCoinInfo(coin)
+    .then(function(response) {
+      if (response.id) { // if fetch returns ok and we have good JSON data
+        displayCoinInfo(response);
+      } else { // if fetch returns a bad get
+        displayCoinError(response);
+      }
+    });
 }
 
 // UI LOGIC
