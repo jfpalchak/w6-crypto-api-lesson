@@ -9,6 +9,10 @@ background-color: rgba(120, 213, 120, 0.222);
   margin-bottom: 200px;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* CONTENT DISPLAY */
 .display {
   background-color: rgba(132, 234, 132, 0.534);
@@ -17,12 +21,18 @@ background-color: rgba(120, 213, 120, 0.222);
   margin: auto 10px;
   width: 40%;
   height: 450x;
-  /* overflow: auto; */
 }
 
 .coin p{
-  height: 250px;
-  overflow: auto;
+  background-color: rgba(120, 213, 120, 0.533);
+  border-radius: 8px;
+  padding: 5px 10px;
+  height: 230px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
 }
 
 img {
